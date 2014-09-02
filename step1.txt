@@ -1,0 +1,10 @@
+Helper Code:
+
+@index.html -> before main.js script
+<script src="js/vendor/angular.min.js"></script>
+
+@js/main.js -> only thing there at this point
+var app = angular.module('farmersMarket');
+
+@index.html -> attribute at body tag
+ng-app="farmersMarket"

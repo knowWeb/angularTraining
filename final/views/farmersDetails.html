@@ -1,0 +1,23 @@
+<div id="resultDetail">
+    <div>
+        <a href="#/" class="back">
+            Go Back
+        </a>
+        <div id="loadingDetail" ng-if="loading">
+            <p class="loading">
+            </p>
+        </div>
+        <div id="resultData" ng-if="details && !loading">
+            <h2>{{ marketName }}</h2>
+            <iframe ng-src="{{ details.GoogleMaps | urlSafe }}" id="detailMap"></iframe>
+            <div>
+                <h3>Products:</h3>
+                <div ng-bind-html="details.Products | semicolonToList | toHTML"></div>
+            </div>
+            <div>
+                <h3>Time and date open:</h3>
+                <div ng-bind-html="details.Schedule | semicolonToSpace | breakBeforeWeekDay | toHTML"></div>
+            </div>
+        </div>
+    </div>
+</div>
