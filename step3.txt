@@ -1,0 +1,37 @@
+Helper Code:
+
+
+@index.html -> bellow the script tag adding angular, insert the following script tag
+<script src="js/vendor/angular-route.min.js"></script>
+
+
+@main.js -> at the declaration of your app (should be the first thing in the file) add 'ngRoute'
+var app = angular.module('farmersMarket', ['ngRoute']);
+
+
+@main.js -> bellow the declaration of your app, add:
+app.config(['$routeProvider', function($routeProvider) {
+    $routeProvider.when('/', {
+        templateUrl: 'views/farmersSearch.html',
+        controller: 'search'
+    }).otherwise({redirectTo:'/'});
+}]);
+
+
+@directory -> create a folder called views, and inside that folder, create a new file farmersSearch.html
+
+
+@index.html -> copy the contents inside of the main tag
+
+
+@views/farmersSearch.html -> paste the contents inside farmersSearch.html
+
+
+@index.html -> remove the contents inside of the main tag
+
+
+@index.html -> change attribute of the main tag, from ng-controller="search" to:
+ng-view
+
+
+//FIREWORKS
