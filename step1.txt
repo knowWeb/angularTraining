@@ -4,7 +4,98 @@ Helper Code:
 <script src="js/vendor/angular.min.js"></script>
 
 @js/main.js -> only thing there at this point
-var app = angular.module('farmersMarket');
+var app = angular.module('farmersMarket', []);
 
 @index.html -> attribute at body tag
 ng-app="farmersMarket"
+
+@index.html -> attribute at main tag
+ng-controller="search"
+
+@js/main.js -> bellow the declaration of app
+app.controller('search', function($scope) {
+
+});
+
+@js/main.js -> inside the search controller
+$scope.search = {
+    zip : null,
+    coords : null,
+    loading : false,
+    results : null
+};
+
+@index.html -> inside div with id "zipOrTrack"
+Zip: {{ search.zip }} 
+Coords: {{ search.coords[0] }}, {{ search.coords[1] }}
+
+@index.html -> add this attribute to input for zip code
+ng-model="search.zip"
+ngMaxlength="5"
+
+@js/main.js -> inside the search controller, bellow the $scope declaration
+$scope.getCoords = function() {
+    if (Modernizr.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            $scope.search.coords = [
+                position.coords.latitude,
+                position.coords.longitude
+            ];
+            $scope.$digest();
+        });
+    }
+};
+
+@index.html -> add this attribute to the "get my position" button
+ng-click="getCoords();"
+
+@js/main.js -> inside the search controller, bellow the $scope.getCoords() function
+var init = function() {
+    $scope.$watch('search.zip', function() {
+        console.log('zip change');
+    });
+    $scope.$watch('search.coords', function() {
+        console.log('coords change');
+    });
+};
+
+init();
+
+@index.html -> inside div with id "zipOrTrack", REMOVE (this was just for show)
+Zip: {{ search.zip }} 
+Coords: {{ search.coords[0] }}, {{ search.coords[1] }}
+
+@index.html -> bellow(not inside) div with id "blankResults"
+<div id="loadingSearch">
+    <p class="loading">
+    </p>
+</div>
+
+@index.html -> add the attribute to div with id "loadingSearch"
+ng-if="search.loading"
+
+@index.html -> add the attribute to div with id "blankResults"
+ng-if="!search.loading"
+
+@js/main.js -> inside the search controller, above init() function
+var trackZip = function() {
+    if ($scope.search.zip) {
+        if ($scope.search.zip.length === 5) {
+            $scope.search.loading = true;
+            console.log('ajax here');
+        }
+    }
+};
+
+var trackCoords = function() {
+    if ($scope.search.coords) {
+        $scope.search.loading = true;
+        console.log('ajax here');
+    }
+};
+
+@js/main.js -> inside the search controller, inside init() function, replace console.log('zip change');
+trackZip();
+
+@js/main.js -> inside the search controller, inside init() function, replace console.log('coords change');
+trackCoords();
