@@ -1,0 +1,87 @@
+Helper Code:
+
+
+@main.js -> at the bottom of the file
+app.factory('farmersMarketFactory', function($http) {
+
+    var factory = {};
+
+    return factory;
+});
+
+
+@main.js -> add the factory to the search controller (bellow is how the controller definition should look like)
+app.controller('search', function($scope, farmersMarketFactory) {
+
+
+@main.js -> inside the factory, after the factory object is defined, add the methods bellow
+factory.getMarketDataByZip = function(zip) {
+    var promise = $http.get('http://search.ams.usda.gov/farmersmarkets/v1/data.svc/zipSearch?zip=' + zip).then(function (results) {
+        return results.data;
+    });
+    return promise;
+};
+
+factory.getMarketDataByCoords = function(coords) {
+    var promise = $http.get('http://search.ams.usda.gov/farmersmarkets/v1/data.svc/locSearch?lat=' + coords[0] + '&lng=' + coords[1]).then(function (results) {
+        return results.data;
+    });
+    return promise;
+};
+
+
+@main.js -> inside the search controller at the trackZip function, replace the console.log('ajax here'); with this:
+farmersMarketFactory.getMarketDataByZip($scope.search.zip).then(function(d){
+    $scope.search.results = d.results;
+    $scope.search.loading = false;
+    console.log($scope.search);
+});
+
+
+@main.js -> inside the search controller at the trackCoords function, replace the console.log('ajax here'); with this:
+farmersMarketFactory.getMarketDataByCoords($scope.search.coords).then(function(d){
+    $scope.search.results = d.results;
+    $scope.search.loading = false;
+    console.log($scope.search);
+});
+
+
+@index.html -> change the ng-if in the div with id "blankResults" to:
+ng-if="!search.loading && !search.results"
+
+
+@index.html -> add this HTML bellow the div with id "loadingSearch"
+<div id="searchResults" ng-if="search.results && !search.loading">
+    <a href="" ng-repeat="results in search.results" ng-if="results.id !== 'Error'" class="result">
+        {{ results.marketname }}
+    </a>
+    <div ng-if="search.results[0].id === 'Error'" class="result">
+        <span>{{ search.results[0].id }} | </span>{{ search.results[0].marketname }}
+    </a>
+</div>
+
+
+@main.js -> add this function to the factory, right bellow var factory = {};
+var processData = function(dataArr) {
+    var str1, str2, str3;
+    if (dataArr.results[0].id !== "Error") {
+        for (var i=0; i < dataArr.results.length; i++) {
+            str1 = dataArr.results[i].marketname;
+            str2 = str1.substr(0,str1.indexOf(' ')) + " miles ",
+            str3 = str1.substr(str1.indexOf(' ')+1);
+            dataArr.results[i].marketname = str3;
+            dataArr.results[i].marketnameEncoded = encodeURIComponent(str3);
+            dataArr.results[i].distance = str2;
+        }
+    }
+
+    return dataArr;
+}
+
+
+@main.js -> change the return of the 2 factories methods from return results.data; to:
+return processData(results.data);
+
+
+@index.html -> find {{ results.marketname }} and change it to 
+{{ results.marketname }}<span> | {{ results.distance }}</span>

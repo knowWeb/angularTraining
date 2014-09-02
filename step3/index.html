@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!--[if lt IE 9]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gte IE 9]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Farmers Market Near You</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="css/normalize.min.css">
+        <link rel="stylesheet" href="css/main.css">
+
+        <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+    </head>
+    <body ng-app="farmersMarket">
+        <!--[if lte IE 8]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        
+        <!-- Content -->
+        <header id="appHeader">
+            <h1>Farmers Market Near You</h1>
+        </header>
+        <main ng-controller="search">
+            <div id="zipOrTrack">
+                <div>
+                    <input type="text" pattern="\d*" ngMaxlength="5" ng-model="search.zip" placeholder="Zip Code" /> <span>&mdash; OR &mdash;</span> <a href="" ng-click="getCoords();">Get my position</a>
+                </div>
+            </div>
+            <div id="results">
+                <div id="blankResults" ng-if="!search.loading && !search.results">
+                    Please, enter your 5 digit zip code or click on "Get my position"
+                </div>
+                <div id="loadingSearch" ng-if="search.loading">
+                    <p class="loading">
+                    </p>
+                </div>
+                <div id="searchResults" ng-if="search.results && !search.loading">
+                    <a href="" ng-repeat="results in search.results" ng-if="results.id !== 'Error'" class="result">
+                        {{ results.marketname }}<span> | {{ results.distance }}</span>
+                    </a>
+                    <div ng-if="search.results[0].id === 'Error'" class="result">
+                        <span>{{ search.results[0].id }} | </span>{{ search.results[0].marketname }}
+                    </a>
+                </div>
+            </div>
+        </main>
+        <footer id="appFooter">
+            <p>Information is retrived from an open USDA API</p>
+        </footer>
+        <!-- End of Content -->
+
+        <script src="js/vendor/angular.min.js"></script>
+        <script src="js/main.js"></script>
+
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. 
+        <script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='//www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-XXXXX-X');ga('send','pageview');
+        </script>
+        -->
+    </body>
+</html>
