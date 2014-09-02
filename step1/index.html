@@ -23,6 +23,16 @@
             <h1>Farmers Market Near You</h1>
         </header>
         <main>
+            <div id="zipOrTrack">
+                <div>
+                    <input type="text" pattern="\d*" placeholder="Zip Code" /> <span>&mdash; OR &mdash;</span> <a href="">Get my position</a>
+                </div>
+            </div>
+            <div id="results">
+                <div id="blankResults">
+                    Please, enter your 5 digit zip code or click on "Get my position"
+                </div>
+            </div>
         </main>
         <footer id="appFooter">
             <p>Information is retrived from an open USDA API</p>
