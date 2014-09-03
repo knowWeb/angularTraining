@@ -1,0 +1,74 @@
+Helper Code:
+
+
+@main.js -> change the app config to
+app.config(['$routeProvider', function($routeProvider) {
+	$routeProvider.when('/', {
+		templateUrl: 'views/farmersSearch.html',
+    	controller: 'search'
+	}).when('/farmersMarket/:marketId', {
+    	templateUrl: 'views/farmersDetails.html',
+    	controller: 'details'
+	}).otherwise({redirectTo:'/'});
+}]);
+
+
+@main.js -> add the following function to the factory
+factory.getMarketDetails = function(id) {
+	var promise = $http.get('http://search.ams.usda.gov/farmersmarkets/v1/data.svc/mktDetail?id=' + id).then(function (results) {
+		return results.data;
+	});
+	return promise;
+};
+
+
+@main.js -> add the following controller bellow the search controller
+app.controller('details', function($scope, $routeParams, farmersMarketFactory) {
+	$scope.marketId = $routeParams.marketId;
+	$scope.marketName = $routeParams.marketName;
+	$scope.loading = true;
+	$scope.details = false;
+
+	var init = function() {
+		farmersMarketFactory.getMarketDetails($scope.marketId).then(function(d){
+			$scope.details = d.marketdetails;
+			$scope.details.GoogleMaps = 'https://www.google.com/maps/embed/v1/search?key=AIzaSyA4OFKbHnw9Ks7vW14ULE4xIQuFk4B6Fs4&zoom=11&q=' + encodeURIComponent($scope.details.Address.replace(/ *\([^)]*\) */g, ""));
+			$scope.loading = false;
+			console.log($scope.details);
+		});
+	};
+
+	init();
+});
+
+
+@farmersSearch.html -> change the following code <a href="" ng-repeat="results in search.results" ng-if="results.id !== 'Error'" class="result"> to:
+<a ng-href="#/farmersMarket/{{ results.id }}" ng-repeat="results in search.results" ng-if="results.id !== 'Error'" class="result">
+
+
+@directory -> inside the folder views, create a new file called farmersDetails.html
+
+
+@views/farmersDetails.html -> paste the following content
+<div id="resultDetail">
+    <div>
+        <a href="#/" class="back">
+            Go Back
+        </a>
+        <div id="loadingDetail" ng-if="loading">
+            <p class="loading">
+            </p>
+        </div>
+        <div id="resultData" ng-if="details && !loading">
+            {{ details.GoogleMaps }}
+            <div>
+                <h3>Products:</h3>
+                {{ details.Products }}
+            </div>
+            <div>
+                <h3>Time and date open:</h3>
+                {{ details.Schedule }}
+            </div>
+        </div>
+    </div>
+</div>
