@@ -1,0 +1,110 @@
+Helper Code:
+
+
+@farmersDetails.html -> first thing inside div with id "resultData"
+<iframe ng-src="{{ details.GoogleMaps }}" id="detailMap"></iframe>
+
+
+@main.js -> bottom of the file
+angular.module('filters', []).filter('urlSafe', ['$sce', function ($sce) {
+	return function (input) {
+		if (input) {
+			return $sce.trustAsResourceUrl(input);
+		}
+	};
+}]);
+
+
+@main.js -> top of the file, add filters to app declaration
+var app = angular.module('farmersMarket', ['ngRoute', 'filters']);
+
+
+@farmersDetails.html -> back at the iframe, chane it to look like this
+<iframe ng-src="{{ details.GoogleMaps }}" id="detailMap"></iframe>
+
+
+@main.js -> lets add 2 more filters, your filters at the end of the file should look like this
+angular.module('filters', []).filter('semicolonToList', function () {
+	return function (input) {
+		if (input) {
+			return '<ul><li>' + input.replace(/;/g,'</li><li>') + '</li></ul>';
+		}
+	};
+}).filter('urlSafe', ['$sce', function ($sce) {
+	return function (input) {
+		if (input) {
+			return $sce.trustAsResourceUrl(input);
+		}
+	};
+}]).filter('toHTML', ['$sce', function ($sce) {
+	return function (input) {
+		if (input) {
+			return $sce.trustAsHtml(input);
+		}
+	};
+}]);
+
+
+@farmersDetails.html -> change {{ details.Products }} to this
+<div ng-bind-html="details.Products | semicolonToList | toHTML"></div>
+
+
+@main.js -> just a few more filters, your filters at the end of the file should look like this
+angular.module('filters', []).filter('semicolonToList', function () {
+	return function (input) {
+		if (input) {
+			return '<ul><li>' + input.replace(/;/g,'</li><li>') + '</li></ul>';
+		}
+	};
+}).filter('semicolonToSpace', function () {
+	return function (input) {
+		if (input) {
+			return input.replace(/;/g,' ');
+		}
+	};
+}).filter('breakBeforeWeekDay', function () {
+	return function (input) {
+		var weekDays = ['Sun:', 'Mon:', 'Tue:', 'Wed:', 'Thu:', 'Fri:', 'Sat:'], re;
+		if (input) {
+			for (var i=0;i < weekDays.length;i++) {
+				re = new RegExp(weekDays[i], "g");
+				input = input.replace(re,'<br />' + weekDays[i]);
+			}
+			return input;
+		}
+	};
+}).filter('removeParenthesis', function ($sce) {
+	return function (input) {
+		if (input) {
+			return input.replace(/ *\([^)]*\) */g, "");
+		}
+	};
+}).filter('urlSafe', ['$sce', function ($sce) {
+	return function (input) {
+		if (input) {
+			return $sce.trustAsResourceUrl(input);
+		}
+	};
+}]).filter('toHTML', ['$sce', function ($sce) {
+	return function (input) {
+		if (input) {
+			return $sce.trustAsHtml(input);
+		}
+	};
+}]);
+
+
+@farmersDetails.html -> change {{ details.Schedule }} to this
+<div ng-bind-html="details.Schedule | semicolonToSpace | breakBeforeWeekDay | toHTML"></div>
+
+
+@farmersSearch.html -> change this ng-href="#/farmersMarket/{{ results.id }}" to:
+ng-href="#/farmersMarket/{{ results.id }}/{{ results.marketnameEncoded }}"
+
+
+@main.js -> app.config, change }).when('/farmersMarket/:marketId', { to:
+}).when('/farmersMarket/:marketId/:marketName', {
+
+
+@farmersDetails.html -> add right before the iframe
+<h2>{{ marketName }}</h2>
