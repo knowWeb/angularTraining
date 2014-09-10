@@ -68,7 +68,6 @@ app.controller('search', function($scope, farmersMarketFactory) {
 
 app.controller('details', function($scope, $routeParams, farmersMarketFactory) {
 	$scope.marketId = $routeParams.marketId;
-	$scope.marketName = $routeParams.marketName;
 	$scope.loading = true;
 	$scope.details = false;
 
