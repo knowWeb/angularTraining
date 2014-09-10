@@ -20,7 +20,7 @@ var app = angular.module('farmersMarket', ['ngRoute', 'filters']);
 
 
 @farmersDetails.html -> back at the iframe, chane it to look like this
-<iframe ng-src="{{ details.GoogleMaps }}" id="detailMap"></iframe>
+<iframe ng-src="{{ details.GoogleMaps | urlSafe }}" id="detailMap"></iframe>
 
 
 @main.js -> lets add 2 more filters, your filters at the end of the file should look like this
@@ -104,6 +104,10 @@ ng-href="#/farmersMarket/{{ results.id }}/{{ results.marketnameEncoded }}"
 
 @main.js -> app.config, change }).when('/farmersMarket/:marketId', { to:
 }).when('/farmersMarket/:marketId/:marketName', {
+
+
+@main.js -> add this line to the details controller, together with the other scope variables
+$scope.marketName = $routeParams.marketName;
 
 
 @farmersDetails.html -> add right before the iframe

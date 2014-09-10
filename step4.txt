@@ -25,7 +25,6 @@ factory.getMarketDetails = function(id) {
 @main.js -> add the following controller bellow the search controller
 app.controller('details', function($scope, $routeParams, farmersMarketFactory) {
 	$scope.marketId = $routeParams.marketId;
-	$scope.marketName = $routeParams.marketName;
 	$scope.loading = true;
 	$scope.details = false;
 
