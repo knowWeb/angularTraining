@@ -1,0 +1,541 @@
+/*! HTML5 Boilerplate v4.3.0 | MIT License | http://h5bp.com/ */
+
+html,
+button,
+input,
+select,
+textarea {
+    color: #222;
+}
+
+html {
+    font-size: 1em;
+    line-height: 1.4;
+}
+
+::-moz-selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+::selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+audio,
+canvas,
+img,
+video {
+    vertical-align: middle;
+}
+
+fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.browsehappy {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
+}
+
+[placeholder]:focus::-webkit-input-placeholder {
+    color: transparent;
+}
+
+input:focus::-moz-placeholder {
+    color: transparent;
+}
+
+input::-ms-clear {
+    display: none;
+}
+
+html ::-webkit-input-placeholder {
+    color: inherit;
+}
+
+html :-moz-placeholder {
+    color: inherit;
+    opacity: 1;
+}
+
+html ::-moz-placeholder {
+    color: inherit;
+    opacity: 1;
+}
+
+html :-ms-input-placeholder {
+    color: inherit;
+    opacity: 1;
+}
+
+
+/* ==========================================================================
+   Farmers Market Locator Styles
+   ========================================================================== */
+
+/* ==========================================================================
+    KEYFRAMES STYLES
+========================================================================== */
+
+@-moz-keyframes spin {
+    from {-moz-transform: rotate(0deg);}
+    to {-moz-transform: rotate(360deg);}
+}
+@-webkit-keyframes spin {
+    from {-webkit-transform: rotate(0deg);}
+    to {-webkit-transform: rotate(360deg);}
+}
+@keyframes spin {
+    from {transform:rotate(0deg);}
+    to {transform:rotate(360deg);}
+}
+
+/* ==========================================================================
+    font-faces
+========================================================================== */
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../fonts/Open_Sans/opensans-regular-webfont.eot');
+    src: url('../fonts/Open_Sans/opensans-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Open_Sans/opensans-regular-webfont.woff') format('woff'),
+         url('../fonts/Open_Sans/opensans-regular-webfont.ttf') format('truetype'),
+         url('../fonts/Open_Sans/opensans-regular-webfont.svg#open_sansregular') format('svg');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 700;
+    src: url('../fonts/Open_Sans/opensans-bold-webfont.eot');
+    src: url('../fonts/Open_Sans/opensans-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Open_Sans/opensans-bold-webfont.woff') format('woff'),
+         url('../fonts/Open_Sans/opensans-bold-webfont.ttf') format('truetype'),
+         url('../fonts/Open_Sans/opensans-bold-webfont.svg#open_sansbold') format('svg');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: italic;
+    font-weight: 400;
+    src: url('../fonts/Open_Sans/opensans-italic-webfont.eot');
+    src: url('../fonts/Open_Sans/opensans-italic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Open_Sans/opensans-italic-webfont.woff') format('woff'),
+         url('../fonts/Open_Sans/opensans-italic-webfont.ttf') format('truetype'),
+         url('../fonts/Open_Sans/opensans-italic-webfont.svg#open_sansitalic') format('svg');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: italic;
+    font-weight: 700;
+    src: url('../fonts/Open_Sans/opensans-bolditalic-webfont.eot');
+    src: url('../fonts/Open_Sans/opensans-bolditalic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Open_Sans/opensans-bolditalic-webfont.woff') format('woff'),
+         url('../fonts/Open_Sans/opensans-bolditalic-webfont.ttf') format('truetype'),
+         url('../fonts/Open_Sans/opensans-bolditalic-webfont.svg#open_sansbold_italic') format('svg');
+}
+
+@font-face {
+  font-family: 'FontAwesome';
+  src: url('../fonts/fontawesome-webfont.eot?v=4.1.0');
+  src: url('../fonts/fontawesome-webfont.eot?#iefix&v=4.1.0') format('embedded-opentype'), url('../fonts/fontawesome-webfont.woff?v=4.1.0') format('woff'), url('../fonts/fontawesome-webfont.ttf?v=4.1.0') format('truetype'), url('../fonts/fontawesome-webfont.svg?v=4.1.0#fontawesomeregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* ==========================================================================
+    styles
+========================================================================== */
+
+*, 
+*:before, 
+*:after {
+    -moz-box-sizing: border-box; 
+    -webkit-box-sizing: border-box; 
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #000;
+}
+
+#appHeader, 
+#appFooter {
+    background-color: black;
+    display: table;
+    color: white;
+    font-size: 1.5em;
+    text-align: center;
+    font-weight: bold;
+    height: 3em;
+    width: 100%;
+}
+
+#appHeader h1,
+#appFooter p {
+    display: table-cell;
+    vertical-align: middle;
+    margin: 0;
+    font-size: 1em; 
+}
+
+#appFooter p a {
+    color: inherit;
+}
+
+#zipOrTrack {
+    height: 20em;
+    background-color: #005502;
+    display: table;
+    width: 100%;
+}
+
+#zipOrTrack > div {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 2em;
+}
+
+#zipOrTrack > div > input {
+    width: 90%;
+    margin: 0 5%;
+    background-color: #fff;
+    color: #005502;
+    text-align: center;
+    height: 1.6em;
+    max-width: 10em;
+}
+
+#zipOrTrack > div > span {
+    font-weight: bold;
+    color: #fff;
+    display: block;
+    padding: 1em 0;
+}
+
+#zipOrTrack > div > a {
+    display: inline-block;
+    background-color: #fff;
+    padding: 0 0.5em;
+    line-height: 1.6em;
+    text-decoration: none;
+    border-radius: .25em;
+    -moz-border-radius: 0.25em;
+    -webkit-border-radius: 0.25em;
+    color: #005502;
+    border: 3px #CCFFBA solid;
+    font-weight: bold;
+}
+
+#results {
+    background-color: #fff;
+    width: 100%;
+    min-height: 15em;
+    display: table;
+}
+
+#results #loadingSearch {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    width: 100%;
+    color: #005502;
+}
+
+.loading {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 2em;
+}
+
+#searchResults {
+    margin: 2em auto;
+    background-color: #CCFFBA;
+    border-radius: 0.25em;
+    -moz-border-radius: 0.25em;
+    -webkit-border-radius: 0.25em;
+    padding: 0 1em;
+    width: 90%;
+    max-width: 80em;
+    border: 1px solid #005502;
+}
+
+#searchResults > .result {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    border-top: 2px solid #005502;
+    padding: 0.5em 0;
+    font-weight: bold;
+    color: #005502;
+}
+
+#searchResults > .result > span {
+    color: #fa4600;
+}
+
+#searchResults > .result:first-child {
+    border-top: none;
+}
+
+#blankResults {
+    display: table-cell;
+    width: 100%;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 1.5em;
+    color: #005502;
+    font-weight: bold;
+    padding: 0 1em;
+}
+
+#resultDetail {
+    background-color: #CCFFBB; 
+    text-align: center;
+}
+
+#resultDetail > div {
+    min-height: 20em;
+    width: 90%;
+    max-width: 80em;
+    margin: 0 auto;
+    padding: 1em 0;
+}
+
+#resultDetail .back {
+    display: inline-block;
+    background-color: #005502;
+    text-decoration: none;
+    color: #fff;
+    padding: 0 1em;
+    line-height: 2.1em; 
+    border-radius: 0.25em;
+    -moz-border-radius: 0.25em;
+    -webkit-border-radius: 0.25em;
+    font-weight: bold;
+    margin-bottom: 1em;
+}
+
+#resultDetail h2 {
+    color: #005502;
+}
+
+#detailMap {
+    width:100%; 
+    display: block;
+    max-width: 30em;
+    height: 20em;
+    margin: 0 auto 1em;
+    border: 1px dashed #005502;
+}
+
+#resultDetail h3 {
+    color: #005502;
+}
+
+#resultDetail ul {
+    margin: 0;
+    padding: 0;
+}
+
+#resultDetail ul li {
+    list-style: none;
+}
+
+
+@media only screen and (min-width: 1400px) {
+
+    #results {
+        min-height: 25.7em;
+    }
+
+    #zipOrTrack {
+        height: 25em;
+    }
+
+}
+
+
+/* ==========================================================================
+   Helper classes
+   ========================================================================== */
+
+.no-cssanimations .loading:before {
+    content: 'Loading...';
+}
+
+.cssanimations .loading:before {
+    content: '\f110';
+    font-family: 'FontAwesome';
+    text-align: center;
+    font-size: 2.5em;
+    display: block;
+    -webkit-font-smoothing: antialiased;
+    -webkit-animation-duration: 1.5s;
+    -webkit-animation-name: spin;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-duration: 1.5s;
+    -moz-animation-name: spin;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: linear;
+    -ms-animation-duration: 1.5s;
+    -ms-animation-name: spin;
+    -ms-animation-iteration-count: infinite;
+    -ms-animation-timing-function: linear;
+    animation-duration: 1.5s;
+    animation-name: spin;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.ir {
+    background-color: transparent;
+    border: 0;
+    overflow: hidden;
+    *text-indent: -9999px;
+}
+
+.ir:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 150%;
+}
+
+.hidden {
+    display: none !important;
+    visibility: hidden;
+}
+
+.visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+.visuallyhidden.focusable:active,
+.visuallyhidden.focusable:focus {
+    clip: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    position: static;
+    width: auto;
+}
+
+.invisible {
+    visibility: hidden;
+}
+
+.clearfix:before,
+.clearfix:after {
+    content: " ";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+
+/* ==========================================================================
+   Print styles
+   ========================================================================== */
+
+@media print {
+    * {
+        background: transparent !important;
+        color: #000 !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    a,
+    a:visited {
+        text-decoration: underline;
+    }
+
+    a[href]:after {
+        content: " (" attr(href) ")";
+    }
+
+    abbr[title]:after {
+        content: " (" attr(title) ")";
+    }
+
+    .ir a:after,
+    a[href^="javascript:"]:after,
+    a[href^="#"]:after {
+        content: "";
+    }
+
+    pre,
+    blockquote {
+        border: 1px solid #999;
+        page-break-inside: avoid;
+    }
+
+    thead {
+        display: table-header-group;
+    }
+
+    tr,
+    img {
+        page-break-inside: avoid;
+    }
+
+    img {
+        max-width: 100% !important;
+    }
+
+    @page {
+        margin: 0.5cm;
+    }
+
+    p,
+    h2,
+    h3 {
+        orphans: 3;
+        widows: 3;
+    }
+
+    h2,
+    h3 {
+        page-break-after: avoid;
+    }
+}
