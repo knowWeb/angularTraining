@@ -181,12 +181,104 @@ body {
     font-family: 'Open Sans', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background-color: #f1f1f1;
+}
+
+.hugeHead {
+    background-color: #444;
+}
+
+.hugeHead > h1 {
+    text-align: center;
+    color: #f1f1f1;
+    margin: 0;
+    padding-top: 0.5em;
+}
+
+.aLogo {
+    max-width: 13em;
+    text-align: center;
+    margin: 0 auto;
+    width: 90%;
+    display: block;
+}
+
+.cardWrapper {
+    list-style: none;
+    text-align: center;
+    padding: 0;
+}
+
+.card {
+    display: inline-block;  
+    width: 90%;
+    min-height: 10.15em;
+    background-color: #b62833;
+    margin-bottom: 1em;
+    position: relative;
+    -webkit-border-radius: 1em;
+    -moz-border-radius: 1em;
+    border-radius: 1em;
+    -webkit-box-shadow: 3px 3px 9px 0px rgba(50, 50, 50, 1);
+    -moz-box-shadow:    3px 3px 9px 0px rgba(50, 50, 50, 1);
+    box-shadow:         3px 3px 9px 0px rgba(50, 50, 50, 1);
+}
+
+.card a {
+    display: table;
+    width: 100%;
+    text-decoration: none;
+    color: #f1f1f1;
+    min-height: 10.15em;
+}
+
+.card .text {
+    font-size: 1.5em;
+    font-weight: bold;
+    padding: 2em 10%;
+    position: relative;
+    z-index: 2;
+    margin: 0;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.card > div {
+    display: table;
+    width: 100%;
+    min-height: 10.15em;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+}
+
+.card > div > .awe {
+    color: #444;
+    margin: 0;
+    font-size: 8em;
+    vertical-align: middle;
+    display: table-cell;
+}
+
+@media only screen and (min-width: 900px) {
+
+    .card { 
+        width: 40%;
+        margin: 0 0.5% 1em;
+        vertical-align: top;
+    }
+
 }
 
 
 /* ==========================================================================
    Helper classes
    ========================================================================== */
+
+.awe {
+    font-family: 'FontAwesome';  
+}
 
 .no-cssanimations .loading:before {
     content: 'Loading...';
