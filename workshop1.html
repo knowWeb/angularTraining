@@ -45,10 +45,195 @@
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
 				<section>
-					<h1>
-						AngularJS part 1, booting up your app
-					</h1>
+					<section>
+						<h1>
+							AngularJS part 1, booting up your app
+						</h1>
+					</section>
+					<section>
+						<h2>
+							Please, consider folder 1 your root
+						</h2>
+					</section>
 				</section>
+
+				<section>
+					<section>
+						<h2>
+							index.html
+						</h2>
+					</section>
+					<section>
+						<h3>
+							Add AngularJS to your page
+						</h3>
+						<pre><code>
+&lt;script src="js/vendor/angular.min.js"&gt;&lt;/script&gt;
+						</code></pre>
+						<p>
+							Add the code above right before the main.js script tag at the bottom of the file
+						</p>
+					</section>
+					<section>
+						<h2>
+							js/main.js
+						</h2>
+					</section>
+					<section>
+						<h3>
+							Define your AngularJS app
+						</h3>
+						<pre><code>
+var app = angular.module('farmersMarket', []);
+						</code></pre>
+						<p>
+							Add the code to js/main.js
+						</p>
+					</section>
+					<section>
+						<h3>
+							Define your AngularJS app
+						</h3>
+						<pre><code>
+app.controller('search', function($scope) {
+
+});
+						</code></pre>
+						<p>
+							Add the code bellow the app definition
+						</p>
+					</section>
+					<section>
+						<h2>
+							index.html
+						</h2>
+					</section>
+					<section>
+						<h3>
+							Hook the app at index.html
+						</h3>
+						<pre><code>
+&lt;body ng-app="farmersMarket"&gt;
+						</code></pre>
+						<p>
+							Add the app to the body tag
+						</p>
+					</section>
+					<section>
+						<h3>
+							Hook the controller up at index.html
+						</h3>
+						<pre><code>
+&lt;main ng-controller="search"&gt;
+						</code></pre>
+						<p>
+							Add the controller to your main tag
+						</p>
+					</section>
+					<section>
+						<h2>
+							Look at your page...
+						</h2>
+						<p>
+							No changes, right?
+						</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>
+							js/main.js
+						</h2>
+					</section>
+					<section>
+						<h3>
+							Adding things to the controller
+						</h3>
+						<pre><code>
+app.controller('search', function($scope) {
+    $scope.search = {
+    	zip : null,
+    	coords : null,
+    	loading : false,
+    	results : null
+    };
+});
+						</code></pre>
+						<p>
+							Lets add somethings to the scope of the search controller
+						</p>
+					</section>
+					<section>
+						<h3>
+							And also a function
+						</h3>
+						<pre><code>
+$scope.getCoords = function() {
+    if (Modernizr.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            $scope.search.coords = [
+                position.coords.latitude,
+                position.coords.longitude
+            ];
+            $scope.$digest();
+        });
+    }
+};
+						</code></pre>
+						<p>
+							Add this as the last thing inside the search controller 
+						</p>
+					</section>
+					<section>
+						<h2>
+							index.html
+						</h2>
+					</section>
+					<section>
+						<h3>
+							Let's do some data binding
+						</h3>
+						<pre><code>
+&lt;input type="text" pattern="\d*" placeholder="Zip Code" ng-model="search.zip" /&gt;
+						</code></pre>
+						<p>
+							Add the ng-model to the input for zip code
+						</p>
+					</section>
+					<section>
+						<h3>
+							A bit of a click event
+						</h3>
+						<pre><code>
+&lt;a href="" ng-click="getCoords();"&gt;Get my position&lt;/a&gt;
+						</code></pre>
+						<p>
+							Add the ng-click to the button to get coordinates
+						</p>
+					</section>
+					<section>
+						<h3>
+							Now some templating {{ }}
+						</h3>
+						<pre><code>
+&lt;div id="blankResults"&gt;
+    Please, enter your 5 digit zip code or click on "Get my position" 
+    Zip: {{ search.zip }} 
+    Coords: {{ search.coords[0] }}, {{ search.coords[1] }}
+&lt;/div&gt;
+						</code></pre>
+						<p>
+							Add some templating to access scope values
+						</p>
+					</section>
+					<section>
+						<h2>
+							Test it out!
+						</h2>
+					</section>
+				</section>
+
 			</div>
 
 		</div>
