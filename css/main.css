@@ -261,6 +261,16 @@ body {
     display: table-cell;
 }
 
+footer > a {
+    width: 100%;
+    text-align: center;
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    background-color: #000;
+    line-height: 2em;
+}
+
 @media only screen and (min-width: 900px) {
 
     .card { 
