@@ -6,7 +6,7 @@
 
 		<title>AngularJS Training</title>
 
-		<meta name="description" content="AngularJS training part 5">
+		<meta name="description" content="AngularJS training part 1">
 		<meta name="author" content="Marcos Santanna">
 
 		<meta name="apple-mobile-web-app-capable" content="yes" />
@@ -230,6 +230,108 @@ $scope.getCoords = function() {
 					<section>
 						<h2>
 							Test it out!
+						</h2>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>
+							js/main.js
+						</h2>
+					</section>
+					<section>
+						<h3>
+							Let it be watchers
+						</h3>
+						<pre><code>
+var init = function() {
+    $scope.$watch('search.zip', function() {
+        console.log('zip change');
+    });
+    $scope.$watch('search.coords', function() {
+        console.log('coords change');
+    });
+};
+
+init();
+						</code></pre>
+						<p>
+							Add the init function inside the search controller, should be the last thing
+						</p>
+					</section>
+					<section>
+						<h2>
+							index.html
+						</h2>
+					</section>
+					<section>
+						<h3>
+							More templating logic
+						</h3>
+						<pre><code>
+&lt;div id="results"&gt;
+    &lt;div id="blankResults" ng-if="!search.loading"&gt;
+        Please, enter your 5 digit zip code or click on "Get my position"
+    &lt;/div&gt;
+    &lt;div id="loadingSearch" ng-if="search.loading"&gt;
+        &lt;p class="loading"&gt;
+        &lt;/p&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+						</code></pre>
+						<p>
+							Change the contents of the results div to look like the code above
+						</p>
+					</section>
+					<section>
+						<h2>
+							js/main.js again
+						</h2>
+					</section>
+					<section>
+						<h3>
+							Some internal functions only to be used within the controller
+						</h3>
+						<pre><code>
+var trackZip = function() {
+    if ($scope.search.zip) {
+        if ($scope.search.zip.length === 5) {
+            $scope.search.loading = true;
+            console.log('ajax here');
+        }
+    }
+};
+
+var trackCoords = function() {
+    if ($scope.search.coords) {
+        $scope.search.loading = true;
+        console.log('ajax here');
+    }
+};
+						</code></pre>
+						<p>
+							Add those after the $scope.getCoords function, inside of search controller
+						</p>
+					</section>
+					<section>
+						<h3>
+							And finally some functionality fot the watchers
+						</h3>
+						<pre><code>
+$scope.$watch('search.zip', function() {
+    trackZip();
+});
+$scope.$watch('search.coords', function() {
+    trackCoords();
+});
+						</code></pre>
+						<p>
+							Replace the console.log for the function calls that we defined in the last step
+						</p>
+					</section>
+					<section>
+						<h2>
+							Take a look at your page and advance to the <a href="workshop2.html">second part</a>.
 						</h2>
 					</section>
 				</section>

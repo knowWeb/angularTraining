@@ -6,7 +6,7 @@
 
 		<title>AngularJS Training</title>
 
-		<meta name="description" content="AngularJS training part 5">
+		<meta name="description" content="AngularJS training part 2">
 		<meta name="author" content="Marcos Santanna">
 
 		<meta name="apple-mobile-web-app-capable" content="yes" />
@@ -45,9 +45,73 @@
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
 				<section>
-					<h1>
-						AngularJS part 1, booting up your app
-					</h1>
+					<section>
+						<h1>
+							AngularJS part 2, the industrialization
+						</h1>
+					</section>
+					<section>
+						<h2>
+							Please, consider folder 2 your root
+						</h2>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>
+							js/main.js
+						</h2>
+					</section>
+					<section>
+						<h3>
+							Create your first factory
+						</h3>
+						<pre><code>
+app.factory('farmersMarketFactory', function($http) {
+
+    var factory = {};
+
+    return factory;
+});
+						</code></pre>
+						<p>
+							Add the code to the bottom of the file
+						</p>
+					</section>
+					<section>
+						<h3>
+							Tie the controller with the factory
+						</h3>
+						<pre><code>
+app.controller('search', function($scope, farmersMarketFactory) {
+						</code></pre>
+						<p>
+							Add farmersMarketFactory to the search controller
+						</p>
+					</section>
+					<section>
+						<h3>
+							Making the factory functional
+						</h3>
+						<pre><code>
+factory.getMarketDataByZip = function(zip) {
+    var promise = $http.get('http://search.ams.usda.gov/farmersmarkets/v1/data.svc/zipSearch?zip=' + zip).then(function (results) {
+        return results.data;
+    });
+    return promise;
+};
+
+factory.getMarketDataByCoords = function(coords) {
+    var promise = $http.get('http://search.ams.usda.gov/farmersmarkets/v1/data.svc/locSearch?lat=' + coords[0] + '&lng=' + coords[1]).then(function (results) {
+        return results.data;
+    });
+    return promise;
+};
+					</code></pre>
+						<p>
+							Add the functions above to the factory, right bellow the factory objection definition
+						</p>
+					</section>
 				</section>
 			</div>
 
