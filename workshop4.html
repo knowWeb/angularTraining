@@ -45,9 +45,153 @@
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
 				<section>
-					<h1>
-						AngularJS part 4, details page
-					</h1>
+					<section>
+						<h1>
+							AngularJS part 4, details page
+						</h1>
+					</section>
+					<section>
+						<h2>
+							Please, consider folder 4 your root
+						</h2>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>
+							js/main.js
+						</h2>
+					</section>
+					<section>
+						<h3>
+							Adding another view
+						</h3>
+						<pre><code>
+app.config(['$routeProvider', function($routeProvider) {
+	$routeProvider.when('/', {
+		templateUrl: 'views/farmersSearch.html',
+    	controller: 'search'
+	}).when('/farmersMarket/:marketId', {
+    	templateUrl: 'views/farmersDetails.html',
+    	controller: 'details'
+	}).otherwise({redirectTo:'/'});
+}]);
+						</code></pre>
+						<p>
+							Change your app config to look like the code above
+						</p>
+					</section>
+					<section>
+						<h3>
+							Creating a new factory method
+						</h3>
+						<pre><code>
+factory.getMarketDetails = function(id) {
+	var promise = $http.get('http://search.ams.usda.gov/farmersmarkets/v1/data.svc/mktDetail?id=' + id).then(function (results) {
+		return results.data;
+	});
+	return promise;
+};
+						</code></pre>
+						<p>
+							Add this factory inside of the farmersMarketFactory
+						</p>
+					</section>
+					<section>
+						<h3>
+							Adding new controller
+						</h3>
+						<pre><code>
+app.controller('details', function($scope, $routeParams, farmersMarketFactory) {
+	$scope.marketId = $routeParams.marketId;
+	$scope.loading = true;
+	$scope.details = false;
+
+	var init = function() {
+		farmersMarketFactory.getMarketDetails($scope.marketId).then(function(d){
+			$scope.details = d.marketdetails;
+			$scope.details.GoogleMaps = 'https://www.google.com/maps/embed/v1/search?key=AIzaSyA4OFKbHnw9Ks7vW14ULE4xIQuFk4B6Fs4&zoom=11&q=' + encodeURIComponent($scope.details.Address.replace(/ *\([^)]*\) */g, ""));
+			$scope.loading = false;
+			console.log($scope.details);
+		});
+	};
+
+	init();
+});
+						</code></pre>
+						<p>
+							Add the controller bellow the search controller
+						</p>
+					</section>
+					<section>
+						<h2>
+							views/farmersSearch.html
+						</h2>
+					</section>
+					<section>
+						<h3>
+							Hooking uo the url for the details page
+						</h3>
+						<pre><code>
+&lt;a ng-href="#/farmersMarket/{{ results.id }}" ng-repeat="results in search.results" ng-if="results.id !== 'Error'" class="result""&gt;
+						</code></pre>
+						<p>
+							Change the anchor tag created by the results to the code above
+						</p>
+					</section>
+					<section>
+						<h2>
+							Views Directory
+						</h2>
+					</section>
+					<section>
+						<p>
+							Create a file called farmersDetails.html
+						</p>
+					</section>
+					<section>
+						<h2>
+							views/farmersDetails.html
+						</h2>
+					</section>
+					<section>
+						<h3>
+							Adding content to the details page
+						</h3>
+						<pre><code>
+&lt;div id="resultDetail"&gt;
+    &lt;div&gt;
+        &lt;a href="#/" class="back"&gt;
+            Go Back
+        &lt;/a&gt;
+        &lt;div id="loadingDetail" ng-if="loading"&gt;
+            &lt;p class="loading"&gt;
+            &lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div id="resultData" ng-if="details && !loading"&gt;
+            {{ details.GoogleMaps }}
+            &lt;div&gt;
+                &lt;h3&gt;Products:&lt;/h3&gt;
+                {{ details.Products }}
+            &lt;/div&gt;
+            &lt;div&gt;
+                &lt;h3&gt;Time and date open:&lt;/h3&gt;
+                {{ details.Schedule }}
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+						</code></pre>
+						<p>
+							Paste the code above inside of the html that you created
+						</p>
+					</section>
+					<section>
+						<h2>
+							Test it all out, and advance to the <a href="workshop5.html">last part</a>.
+						</h2>
+						<img src="img/2.gif" />
+					</section>
 				</section>
 			</div>
 

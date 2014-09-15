@@ -45,9 +45,296 @@
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
 				<section>
-					<h1>
-						AngularJS part 5, wrapping up
-					</h1>
+					<section>
+						<h1>
+							AngularJS part 5, filters and final thoughts
+						</h1>
+					</section>
+					<section>
+						<h2>
+							Please, consider folder 5 your root
+						</h2>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>
+							views/farmersDetails.html
+						</h2>
+					</section>
+					<section>
+						<h3>
+							Adding a google maps iframe
+						</h3>
+						<pre><code>
+&lt;iframe ng-src="{{ details.GoogleMaps }}" id="detailMap"&gt;&lt;/iframe&gt;
+						</code></pre>
+						<p>
+							Add this code as the first thing, inside the div "resultData"
+						</p>
+					</section>
+					<section>
+						<h2>
+							Test it out
+						</h2>
+					</section>
+					<section>
+						<img src="img/6.gif" />
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>
+							js/main.js
+						</h2>
+					</section>
+					<section>
+						<h3>
+							Creating your filters module
+						</h3>
+						<pre><code>
+angular.module('filters', []).filter('urlSafe', ['$sce', function ($sce) {
+    return function (input) {
+        if (input) {
+            return $sce.trustAsResourceUrl(input);
+        }
+    ;
+}]);
+						</code></pre>
+						<p>
+							Add this code to the end of the file
+						</p>
+					</section>
+					<section>
+						<h3>
+							Hooking up your new module to your app
+						</h3>
+						<pre><code>
+var app = angular.module('farmersMarket', ['ngRoute', 'filters']);
+						</code></pre>
+						<p>
+							Change your app declaration at the beginning of the file to look like this
+						</p>
+					</section>
+					<section>
+						<h2>
+							views/farmersDetails.html
+						</h2>
+					</section>
+					<section>
+						<h3>
+							Adding your filter to the google maps
+						</h3>
+						<pre><code>
+&lt;iframe ng-src="{{ details.GoogleMaps | urlSafe }}" id="detailMap"&gt;&lt;/iframe&gt;
+						</code></pre>
+						<p>
+							Change your iframe to look like the code above
+						</p>
+					</section>
+					<section>
+						<h2>
+							Test it out
+						</h2>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>
+							js/main.js
+						</h2>
+					</section>
+					<section>
+						<h3>
+							Adding a few more filters
+						</h3>
+						<pre><code>
+angular.module('filters', []).filter('semicolonToList', function () {
+    return function (input) {
+        if (input) {
+            return '<ul><li>' + input.replace(/;/g,'</li><li>') + '</li></ul>';
+        }
+    };
+}).filter('urlSafe', ['$sce', function ($sce) {
+    return function (input) {
+        if (input) {
+            return $sce.trustAsResourceUrl(input);
+        }
+    };
+}]).filter('toHTML', ['$sce', function ($sce) {
+    return function (input) {
+        if (input) {
+            return $sce.trustAsHtml(input);
+        }
+    };
+}]);
+						</code></pre>
+						<p>
+							Now your filter section should look like this
+						</p>
+					</section>
+					<section>
+						<h2>
+							views/farmersDetails.html
+						</h2>
+					</section>
+					<section>
+						<h3>
+							Rendering HTML
+						</h3>
+						<pre><code>
+&lt;div ng-bind-html="details.Products | semicolonToList | toHTML"&gt;&lt;/div&gt;
+						</code></pre>
+						<p>
+							Change {{ details.Products }} to the div above
+						</p>
+					</section>
+					<section>
+						<h2>
+							Test it out
+						</h2>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>
+							js/main.js
+						</h2>
+					</section>
+					<section>
+						<h3>
+							Adding even more filters
+						</h3>
+						<pre><code>
+angular.module('filters', []).filter('semicolonToList', function () {
+	return function (input) {
+		if (input) {
+			return '<ul><li>' + input.replace(/;/g,'</li><li>') + '</li></ul>';
+		}
+	};
+}).filter('semicolonToSpace', function () {
+	return function (input) {
+		if (input) {
+			return input.replace(/;/g,' ');
+		}
+	};
+}).filter('breakBeforeWeekDay', function () {
+	return function (input) {
+		var weekDays = ['Sun:', 'Mon:', 'Tue:', 'Wed:', 'Thu:', 'Fri:', 'Sat:'], re;
+		if (input) {
+			for (var i=0;i < weekDays.length;i++) {
+				re = new RegExp(weekDays[i], "g");
+				input = input.replace(re,'<br />' + weekDays[i]);
+			}
+			return input;
+		}
+	};
+}).filter('removeParenthesis', function ($sce) {
+	return function (input) {
+		if (input) {
+			return input.replace(/ *\([^)]*\) */g, "");
+		}
+	};
+}).filter('urlSafe', ['$sce', function ($sce) {
+	return function (input) {
+		if (input) {
+			return $sce.trustAsResourceUrl(input);
+		}
+	};
+}]).filter('toHTML', ['$sce', function ($sce) {
+	return function (input) {
+		if (input) {
+			return $sce.trustAsHtml(input);
+		}
+	};
+}]);
+						</code></pre>
+						<p>
+							Now your filter section should look like this
+						</p>
+					</section>
+					<section>
+						<h2>
+							views/farmersDetails.html
+						</h2>
+					</section>
+					<section>
+						<h3>
+							Rendering more HTML
+						</h3>
+						<pre><code>
+&lt;div ng-bind-html="details.Schedule | semicolonToSpace | breakBeforeWeekDay | toHTML"&gt;&lt;/div&gt;
+						</code></pre>
+						<p>
+							Change {{ details.Schedule }} to the div above
+						</p>
+					</section>
+					<section>
+						<h2>
+							views/farmersSearch.html
+						</h2>
+					</section>
+					<section>
+						<h3>
+							Making the url more complex
+						</h3>
+						<pre><code>
+&lt;a ng-href="#/farmersMarket/{{ results.id }}/{{ results.marketnameEncoded }}" ng-repeat="results in search.results" ng-if="results.id !== 'Error'" class="result"&gt;
+						</code></pre>
+						<p>
+							Change the anchor tag that leads to the details page
+						</p>
+					</section>
+					<section>
+						<h2>
+							js/main.js
+						</h2>
+					</section>
+					<section>
+						<h3>
+							Changing the URL for the details page in the config
+						</h3>
+						<pre><code>
+/farmersMarket/:marketId/:marketName
+						</code></pre>
+						<p>
+							Change the URL passed in the .when for the one above
+						</p>
+					</section>
+					<section>
+						<h3>
+							Adding the farmers market name to the details controller
+						</h3>
+						<pre><code>
+$scope.marketName = $routeParams.marketName;
+						</code></pre>
+						<p>
+							Add the line above together with the other $scope variables of the details controller
+						</p>
+					</section>
+					<section>
+						<h2>
+							views/farmersSearch.html
+						</h2>
+					</section>
+					<section>
+						<h3>
+							Add the farmers market name to the view
+						</h3>
+						<pre><code>
+&lt;h2&gt;{{ marketName }}&lt;/h2&gt;
+						</code></pre>
+						<p>
+							Add the code above right before the google maps iframe
+						</p>
+					</section>
+					<section>
+						<h2>
+							And we are done!
+						</h2>
+						<img src="img/5.gif" />
+					</section>
 				</section>
 			</div>
 
