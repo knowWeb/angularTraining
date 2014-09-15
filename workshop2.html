@@ -47,7 +47,7 @@
 				<section>
 					<section>
 						<h1>
-							AngularJS part 2, the industrialization
+							AngularJS part 2, Factories
 						</h1>
 					</section>
 					<section>
@@ -111,6 +111,152 @@ factory.getMarketDataByCoords = function(coords) {
 						<p>
 							Add the functions above to the factory, right bellow the factory objection definition
 						</p>
+					</section>
+					<section>
+						<h3>
+							Using the factories
+						</h3>
+						<pre><code>
+var trackZip = function() {
+    if ($scope.search.zip) {
+        if ($scope.search.zip.length === 5) {
+            $scope.search.loading = true;
+            farmersMarketFactory.getMarketDataByZip($scope.search.zip).then(function(d){
+                $scope.search.results = d.results;
+                $scope.search.loading = false;
+                console.log($scope.search);
+            });
+        }
+    }
+};
+						</code></pre>
+						<p>
+							Add the factory function call to trackZip function in the search controller
+						</p>
+					</section>
+					<section>
+						<h3>
+							Using the factories
+						</h3>
+						<pre><code>
+var trackCoords = function() {
+    if ($scope.search.coords) {
+        $scope.search.loading = true;
+        farmersMarketFactory.getMarketDataByCoords($scope.search.coords).then(function(d){
+            $scope.search.results = d.results;
+            $scope.search.loading = false;
+            console.log($scope.search);
+        });
+    }
+};
+						</code></pre>
+						<p>
+							Add the factory function call to trackCoords function in the search controller
+						</p>
+					</section>
+					<section>
+						<h2>
+							index.html
+						</h2>
+					</section>
+					<section>
+						<h3>
+							Preparing to display some relevant information
+						</h3>
+						<pre><code>
+&lt;div id="blankResults" ng-if="!search.loading && !search.results"&gt;
+    Please, enter your 5 digit zip code or click on "Get my position"
+&lt;/div&gt;
+						</code></pre>
+						<p>
+							add the search.results to the ng-if on black results
+						</p>
+					</section>
+					<section>
+						<h3>
+							Now finally displkaying some relevant information
+						</h3>
+						<pre><code>
+&lt;div id="searchResults" ng-if="search.results && !search.loading"&gt;
+    &lt;a href="" ng-repeat="results in search.results" ng-if="results.id !== 'Error'" class="result"&gt;
+        {{ results.marketname }}
+    &lt;/a&gt;
+    &lt;div ng-if="search.results[0].id === 'Error'" class="result"&gt;
+        &lt;span&gt;{{ search.results[0].id }} | &lt;/span&gt;{{ search.results[0].marketname }}
+    &lt;/a&gt;
+&lt;/div&gt;
+						</code></pre>
+						<p>
+							Add the code above right bellow the "loadingSearch" div
+						</p>
+					</section>
+					<section>
+						<h2>
+							That was a long one! Try it out!
+						</h2>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>
+							js/main.js
+						</h2>
+					</section>
+					<section>
+						<h3>
+							Let's make all this data more friendly!
+						</h3>
+						<pre><code>
+var processData = function(dataArr) {
+    var str1, str2, str3;
+    if (dataArr.results[0].id !== "Error") {
+        for (var i=0; i &lt; dataArr.results.length; i++) {
+            str1 = dataArr.results[i].marketname;
+            str2 = str1.substr(0,str1.indexOf(' ')) + " miles ",
+            str3 = str1.substr(str1.indexOf(' ')+1);
+            dataArr.results[i].marketname = str3;
+            dataArr.results[i].marketnameEncoded = encodeURIComponent(str3);
+            dataArr.results[i].distance = str2;
+        }
+    }
+
+    return dataArr;
+}
+						</code></pre>
+						<p>
+							add this function to the factory, right bellow var factory = {};
+						</p>
+					</section>
+					<section>
+						<h3>
+							Now we need to make sure we tie this together in our factories methods
+						</h3>
+						<pre><code>
+return processData(results.data);
+						</code></pre>
+						<p>
+							Instead of returning just results.data we will proccess that first, please replace it by the code above in the 2 factories methods
+						</p>
+					</section>
+					<section>
+						<h2>
+							index.html
+						</h2>
+					</section>
+					<section>
+						<h3>
+							Let's use some of the things we created by manipulating the response a bit
+						</h3>
+						<pre><code>
+{{ results.marketname }}&lt;span&gt; | {{ results.distance }}&lt;/span&gt;
+						</code></pre>
+						<p>
+							Replace {{ results.marketname }} for the code above
+					</section>
+					<section>
+						<h2>
+							Test it all out, and advance to the <a href="workshop3.html">third part</a>.
+						</h2>
 					</section>
 				</section>
 			</div>

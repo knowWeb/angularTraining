@@ -6,7 +6,7 @@
 
 		<title>AngularJS Training</title>
 
-		<meta name="description" content="AngularJS training part 5">
+		<meta name="description" content="AngularJS training part 3">
 		<meta name="author" content="Marcos Santanna">
 
 		<meta name="apple-mobile-web-app-capable" content="yes" />
@@ -45,9 +45,122 @@
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
 				<section>
-					<h1>
-						AngularJS part 1, booting up your app
-					</h1>
+					<section>
+						<h1>
+							AngularJS part 3, Views and Config
+						</h1>
+					</section>
+					<section>
+						<h2>
+							Please, consider folder 3 your root
+						</h2>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>
+							index.html
+						</h2>
+					</section>
+					<section>
+						<h3>
+							Adding more to our Angular route script
+						</h3>
+						<pre><code>
+&lt;script src="js/vendor/angular-route.min.js"&gt;&lt;/script&gt;
+						</code></pre>
+						<p>
+							Add the code above right before the main.js script
+						</p>
+					</section>
+					<section>
+						<h2>
+							js/main.js
+						</h2>
+					</section>
+					<section>
+						<h3>
+							Adding the dependency on ngRoute
+						</h3>
+						<pre><code>
+var app = angular.module('farmersMarket', ['ngRoute']);
+						</code></pre>
+						<p>
+							Change your app initialization to look like the one above
+						</p>
+					</section>
+					<section>
+						<h3>
+							Time to configure our app
+						</h3>
+						<pre><code>
+app.config(['$routeProvider', function($routeProvider) {
+    $routeProvider.when('/', {
+        templateUrl: 'views/farmersSearch.html',
+        controller: 'search'
+    }).otherwise({redirectTo:'/'});
+}]);
+						</code></pre>
+						<p>
+							Add this code bellow the app initialization
+						</p>
+					</section>
+					<section>
+						<h2>
+							Root Directory
+						</h2>
+					</section>
+					<section>
+						<p>
+							Create a folder called views and inside that folder create a file called farmersSearch.html
+						</p>
+					</section>
+					<section>
+						<h2>
+							index.html
+						</h2>
+					</section>
+					<section>
+						<p>
+							Copy the contents inside of the main tag
+						</p>
+					</section>
+					<section>
+						<h2>
+							views/farmersSearch.html
+						</h2>
+					</section>
+					<section>
+						<p>
+							Paste the contents into the new file
+						</p>
+					</section>
+					<section>
+						<h2>
+							index.html
+						</h2>
+					</section>
+					<section>
+						<p>
+							Delete the contents you just copied
+						</p>
+					</section>
+					<section>
+						<h3>
+							Finishing the view set up
+						</h3>
+						<pre><code>
+&lt;main ng-view&gt;
+						</code></pre>
+						<p>
+							Change the main tag to look like the code above
+						</p>
+					</section>
+					<section>
+						<h2>
+							Test it all out, and advance to the <a href="workshop4.html">fourth part</a>.
+						</h2>
+					</section>
 				</section>
 			</div>
 
