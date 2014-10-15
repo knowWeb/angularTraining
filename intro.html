@@ -50,12 +50,103 @@
 					</h1>
 				</section>
 				<section>
-					<h2>
-						This slide is still under construction
-					</h2>
+					<p>
+						AngularJS, commonly referred to as Angular, is an open-source web application framework, maintained by Google and the community, that assists with creating single-page applications, which consist of one HTML page with CSS and JavaScript on the client side. Its goal is to simplify both development and testing of web applications by providing client-side model–view–controller (MVC) capability as well as providing structure for the entire development process, from design through testing.
+					</p>
+					<a href="http://en.wikipedia.org/wiki/AngularJS">Wikipedia on AngularJS</a>
 				</section>
 			</div>
-
+			<div class="slides">
+				<section>
+					<h1>
+						Diagram Flows
+					</h1>
+				</section>
+				<section>
+					<img src="img/angularFlow1.png" alt="Flow Diagram" />
+					<a href="http://weblogs.asp.net/dwahlin/video-tutorial-angularjs-fundamentals-in-60-ish-minutes" target="_blank">
+						Source
+					</a>
+				</section>
+				<section>
+					<img src="img/angularFlow2.jpg" alt="Flow Diagram" />
+					<a href="http://weblogs.asp.net/dwahlin/video-tutorial-angularjs-fundamentals-in-60-ish-minutes" target="_blank">
+						Source
+					</a>
+				</section>			
+			</div>
+			<div class="slides">
+				<section>
+					<h1>
+						Features
+					</h1>
+				</section>
+				<section>
+					<h2>
+						Directives: extension of html functionality
+					</h2>
+<pre><code>
+&lt;div id="blankResults" ng-if="!search.loading && !search.results"&gt;
+</code></pre>
+				</section>
+				<section>
+					<h2>
+						Two-way data binding: display object values directly into the page
+					</h2>
+<pre><code>
+&lt;div ng-repeat="results in search.results"&gt;
+    {{ results.marketname }}
+&lt;/div&gt;
+</code></pre>
+				</section>
+				<section>
+					<h2>
+						URL routing
+					</h2>
+<pre><code>						
+app.config(['$routeProvider', function($routeProvider) {
+	$routeProvider.when('/', {
+		templateUrl: 'views/farmersSearch.html',
+    	controller: 'search'
+	}).otherwise({redirectTo:'/'});
+}]);
+</code></pre>
+				</section>
+				<section>
+					<h2>
+						Highly organized code
+					</h2>
+					<img src="img/codeSnip.png" alt="Organized Code image" />
+				</section>
+			</div>
+			<div class="slides">
+				<section>
+					<h1>
+						I love jQuery, can I use it with AngularJS?
+					</h1>
+					<p>
+						Yes and No!!! (What!?)
+					</p>
+				</section>
+				<section>
+					<p>
+						AngularJS uses jqLite, which has some of the very basic aspects of jQuery, besides only having the basic features, it also does not use the query engine for elements.
+					</p>
+					<a href="https://docs.angularjs.org/api/ng/function/angular.element" target="_blank">Click for details</a>
+				</section>
+				<section>
+					<p>
+						In addition, if you do include jQuery into your page, angularJS will start using the regular jquery instead, but for learning purposes, I recommend not using jQuery at all.
+					</p>
+				</section>
+			</div>
+			<div class="slides">
+				<section>
+					<h1>
+						Time to go hands on!
+					</h1>
+				</section>
+			</div>
 		</div>
 
 		<script src="lib/js/head.min.js"></script>
